@@ -27,7 +27,7 @@ namespace PrettyHairTests2
 
         }
         [TestMethod]
-        public void CheckStock_CheckStockForProductsMarkedUnsellable_ReturnListOfProducts()
+        public void CheckStock_CheckStockForProductsMarkedUnsellable_ReturnOnlyProductsMarkedAsUnsellable()
         {
             StockRepository2 stockRepository = new StockRepository2();
             List<Product> productsOnRepository = new List<Product>();
