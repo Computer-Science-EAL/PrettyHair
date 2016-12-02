@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using PrettyHairBL;
 
 namespace PrettyHairTests2
 {
@@ -8,13 +10,34 @@ namespace PrettyHairTests2
     {
        
         [TestMethod]
-        public void CheckStock_GetProducts_ReturnListOfProducts()
+        public void CheckStock_GetProducts_ReturnListOfAllProducts()
         {
+            //Arrange
+            StockRepository2 stockRepository = new StockRepository2();
+            List<Product> productsOnRepository = new List<Product>();
+            productsOnRepository.Add(new Product());
+            productsOnRepository.Add(new Product());
+            stockRepository.Products = productsOnRepository;
+
+            //Act
+            List<Product> listOfProducts = stockRepository.GetProducts();
+
+            //Assert
+            CollectionAssert.AreEqual(listOfProducts, productsOnRepository);
 
         }
         [TestMethod]
         public void CheckStock_CheckStockForProductsMarkedUnsellable_ReturnListOfProducts()
         {
+            StockRepository2 stockRepository = new StockRepository2();
+            List<Product> productsOnRepository = new List<Product>();
+            productsOnRepository.Add(new Product { Description = "Item1", Price= 10.0m, Unsellable = true });
+            productsOnRepository.Add(new Product { Description = "Item1", Price = 10.0m, Unsellable = false });
+            stockRepository.Products = productsOnRepository;
+
+            List<Product> unsellables = stockRepository.GetUnsellableProducts();
+
+            Assert.AreEqual(1, unsellables.Count);
 
         }
         [TestMethod]
